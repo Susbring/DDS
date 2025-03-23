@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% if dds %}Редактировать{% else %}Создать{% endif %} запись ДДС</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить</button>
+        <a href="{% url 'dds_list' %}">Отмена</a>
+    </form>
+{% endblock %}

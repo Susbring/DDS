@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+  <h1>Управление справочниками</h1>
+
+  <ul>
+    <li>
+        <a href="{% url 'status_list' %}">
+            {% bootstrap_button button_type="submit" content="Управление статусами" %}
+        </a>
+    </li>
+    <br>
+    <li>
+        <a href="{% url 'type_list' %}">
+            {% bootstrap_button button_type="submit" content="Управление типами" %}
+        </a>
+    </li>
+    <br>
+    <li>
+        <a href="{% url 'category_list' %}">
+            {% bootstrap_button button_type="submit" content="Управление категориями" %}
+        </a>
+    </li>
+    <br>
+    <li>
+        <a href="{% url 'subcategory_list' %}">
+            {% bootstrap_button button_type="submit" content="Управление подкатегориями" %}
+        </a>
+    </li>
+  </ul>
+  <a href="{% url 'dds_list' %}">
+    {% bootstrap_button button_type="submit" content="На главную" %}  
+  </a>
+{% endblock %}

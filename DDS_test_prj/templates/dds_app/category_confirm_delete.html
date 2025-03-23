@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Удаление категории</h1>
+  <p>Вы уверены, что хотите удалить категорию "{{ object }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">
+      {% bootstrap_button button_type="submit" content="Удалить" %}
+    </button>
+    <a href="{% url 'category_list' %}">
+      {% bootstrap_button button_type="submit" content="Отмена" %}
+    </a>
+  </form>
+{% endblock %}

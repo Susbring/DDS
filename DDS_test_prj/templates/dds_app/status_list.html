@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+  <h1>Статусы</h1>
+  <a href="{% url 'status_new' %}">
+    {% bootstrap_button button_type="submit" content="Добавить новый статус" %}
+  </a>
+  <ul>
+    {% for status in statuses %}
+      <br>
+        <li>
+          {{ status.name }}
+          <a href="{% url 'status_edit' status.pk %}">
+            {% bootstrap_button button_type="submit" content="Редактировать" %}
+          </a>
+          <a href="{% url 'status_delete' status.pk %}">
+            {% bootstrap_button button_type="submit" content="Удалить" %}
+          </a>
+        </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'dds_list' %}">
+    {% bootstrap_button button_type="submit" content="На главную" %}
+  </a>
+{% endblock %}

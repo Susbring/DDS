@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+  <h1>Подкатегории</h1>
+  <a href="{% url 'subcategory_new' %}">
+    {% bootstrap_button button_type="submit" content="Добавить новую подкатегорию" %}
+  </a>
+  <ul>
+    {% for subcategory in subcategories %}
+      <li>
+        {{ subcategory.name }}
+        <a href="{% url 'subcategory_edit' subcategory.pk %}">
+          {% bootstrap_button button_type="submit" content="Редактировать" %}
+        </a>
+        <a href="{% url 'subcategory_delete' subcategory.pk %}">
+          {% bootstrap_button button_type="submit" content="Удалить" %}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'dds_list' %}">
+    {% bootstrap_button button_type="submit" content="На главную" %}
+  </a>
+{% endblock %}

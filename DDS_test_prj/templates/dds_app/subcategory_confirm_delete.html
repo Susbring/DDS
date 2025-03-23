@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Удаление подкатегории</h1>
+  <p>Вы уверены, что хотите удалить подкатегорию "{{ object }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">
+      {% bootstrap_button button_type="submit" content="Удалить" %}
+    </button>
+    <a href="{% url 'subcategory_list' %}">
+      {% bootstrap_button button_type="submit" content="Отмена" %}
+    </a>
+  </form>
+{% endblock %}

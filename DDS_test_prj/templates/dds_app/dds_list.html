@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <h1>Список ДДС</h1>
+
+    <form method="get">
+        <label for="date_from">Дата от:</label>
+        <input type="date" name="date_from" id="date_from" value="{{ date_from }}">
+
+        <label for="date_to">Дата до:</label>
+        <input type="date" name="date_to" id="date_to" value="{{ date_to }}">
+
+        <label for="status">Статус:</label>
+        <select name="status" id="status">
+            <option value="">Все</option>
+            {% for status in statuses %}
+                <option value="{{ status.id }}" {% if selected_status == status.id|stringformat:'s' %}selected{% endif %}>{{ status.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="type">Тип:</label>
+        <select name="type" id="type">
+            <option value="">Все</option>
+            {% for type in types %}
+                <option value="{{ type.id }}" {% if selected_type == type.id|stringformat:'s' %}selected{% endif %}>{{ type.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="category">Категория:</label>
+        <select name="category" id="category">
+            <option value="">Все</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if selected_category == category.id|stringformat:'s' %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="subcategory">Подкатегория:</label>
+        <select name="subcategory" id="subcategory">
+            <option value="">Все</option>
+            {% for subcategory in subcategories %}
+                <option value="{{ subcategory.id }}" {% if selected_subcategory == subcategory.id|stringformat:'s' %}selected{% endif %}>{{ subcategory.name }}</option>
+            {% endfor %}
+        </select>
+
+        {% bootstrap_button button_type="submit" content="Фильтр" %}
+        {% if active_filters.date_from or active_filters.date_to or active_filters.status or active_filters.type or active_filters.category or active_filters.subcategory %}
+          <a href="#" onclick="resetFilters()">
+            {% bootstrap_button button_type="submit" content="Сбросить" %}
+          </a>
+        {% else %}
+          <a href="{% url 'dds_list' %}">
+            {% bootstrap_button button_type="submit" content="Сбросить" %}
+          </a>
+        {% endif %}
+    </form>
+
+    <a href="{% url 'dds_new' %}">
+        {% bootstrap_button button_type="submit" content="Создать новую запись" %}
+    </a>
+    <table>
+      <th>Дата</th>
+      <th>Статус</th>
+      <th>Тип</th>
+      <th>Категория</th>
+      <th>Подкатегория</th>
+      <th>Сумма</th>
+      <th>Комментарий</th>
+      {% for dds in page_obj %}
+        <article class="mb-5">
+          <tr>
+            <td>{{ dds.date }}</td>
+            <td>{{ dds.status }}</td>
+            <td>{{ dds.type }}</td>
+            <td>{{ dds.category }}</td>
+            <td>{{ dds.subcategory }}</td>
+            <td>{{ dds.amount }}</td>
+            <td>{{ dds.comment }}</td>
+            <td>
+              <a href="{% url 'dds_edit' dds.pk %}">
+                {% bootstrap_button button_type="submit" content="Изменить" %}
+              </a>
+              <a href="{% url 'dds_delete' dds.pk %}">
+                {% bootstrap_button button_type="submit" content="Удалить" %}
+              </a>
+          </tr>
+        
+          </article>
+        {% endfor %}
+    </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1{% if request.GET.urlencode %}&{{ request.GET.urlencode }}{% endif %}">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.urlencode %}&{{ request.GET.urlencode }}{% endif %}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if request.GET.urlencode %}&{{ request.GET.urlencode }}{% endif %}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.urlencode %}&{{ request.GET.urlencode }}{% endif %}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <a href="{% url 'reference_dds' %}">
+        {% bootstrap_button button_type="submit" content="Управление справочниками" %}
+    </a>
+
+    <script>
+        function resetFilters() {
+            document.getElementById("date_from").value = "";
+            document.getElementById("date_to").value = "";
+            document.getElementById("status").value = "";
+            document.getElementById("type").value = "";
+            document.getElementById("category").value = "";
+            document.getElementById("subcategory").value = "";
+            document.getElementById("filter_form").submit();
+        }
+    </script>
+{% endblock %}
