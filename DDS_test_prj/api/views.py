@@ -105,11 +105,13 @@ class StatusListView(ListView):
     template_name = 'dds_app/status_list.html'
     context_object_name = 'statuses'
 
+
 class StatusCreateView(CreateView):
     model = DDSStatus
     template_name = 'dds_app/status_form.html'
-    fields = ['name']  # Какие поля разрешены для заполнения
-    success_url = reverse_lazy('status_list')  # Куда перенаправлять после успешного создания
+    fields = ['name']
+    success_url = reverse_lazy('status_list')
+
 
 class StatusUpdateView(UpdateView):
     model = DDSStatus
@@ -117,16 +119,18 @@ class StatusUpdateView(UpdateView):
     fields = ['name']
     success_url = reverse_lazy('status_list')
 
+
 class StatusDeleteView(DeleteView):
     model = DDSStatus
     template_name = 'dds_app/status_confirm_delete.html'
     success_url = reverse_lazy('status_list')
 
-# Аналогичные классы для Type, Category и Subcategory
+
 class TypeListView(ListView):
     model = DDSType
     template_name = 'dds_app/type_list.html'
     context_object_name = 'types'
+
 
 class TypeCreateView(CreateView):
     model = DDSType
@@ -134,21 +138,25 @@ class TypeCreateView(CreateView):
     fields = ['name']
     success_url = reverse_lazy('type_list')
 
+
 class TypeUpdateView(UpdateView):
     model = DDSType
     template_name = 'dds_app/type_form.html'
     fields = ['name']
     success_url = reverse_lazy('type_list')
 
+
 class TypeDeleteView(DeleteView):
     model = DDSType
     template_name = 'dds_app/type_confirm_delete.html'
     success_url = reverse_lazy('type_list')
 
+
 class CategoryListView(ListView):
     model = DDSCategory
     template_name = 'dds_app/category_list.html'
     context_object_name = 'categories'
+
 
 class CategoryCreateView(CreateView):
     model = DDSCategory
@@ -156,21 +164,25 @@ class CategoryCreateView(CreateView):
     fields = ['type', 'name']
     success_url = reverse_lazy('category_list')
 
+
 class CategoryUpdateView(UpdateView):
     model = DDSCategory
     template_name = 'dds_app/category_form.html'
     fields = ['type', 'name']
     success_url = reverse_lazy('category_list')
 
+
 class CategoryDeleteView(DeleteView):
     model = DDSCategory
     template_name = 'dds_app/category_confirm_delete.html'
     success_url = reverse_lazy('category_list')
 
+
 class SubcategoryListView(ListView):
     model = DDSSubcategory
     template_name = 'dds_app/subcategory_list.html'
     context_object_name = 'subcategories'
+
 
 class SubcategoryCreateView(CreateView):
     model = DDSSubcategory
@@ -178,11 +190,13 @@ class SubcategoryCreateView(CreateView):
     fields = ['category', 'name']
     success_url = reverse_lazy('subcategory_list')
 
+
 class SubcategoryUpdateView(UpdateView):
     model = DDSSubcategory
     template_name = 'dds_app/subcategory_form.html'
     fields = ['category', 'name']
     success_url = reverse_lazy('subcategory_list')
+
 
 class SubcategoryDeleteView(DeleteView):
     model = DDSSubcategory
