@@ -4,7 +4,15 @@ from .models import DDSStatus, DDSType, DDSCategory, DDSSubcategory, FinancialMo
 
 
 class DDSAdmin(admin.ModelAdmin):
-    list_display = ('date', 'status', 'type', 'category', 'subcategory', 'amount', 'comment')
+    list_display = (
+        'date',
+        'status',
+        'type',
+        'category',
+        'subcategory',
+        'amount',
+        'comment'
+    )
     list_filter = ('date', 'status', 'type', 'category', 'subcategory')
     search_fields = ('comment',)
     date_hierarchy = 'date'
@@ -12,7 +20,14 @@ class DDSAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('status', 'type', 'category', 'subcategory', 'amount', 'comment')
+            'fields': (
+                'status',
+                'type',
+                'category',
+                'subcategory',
+                'amount',
+                'comment'
+            )
         }),
         ('Дата', {
             'fields': ('date',),
